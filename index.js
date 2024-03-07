@@ -3,6 +3,7 @@ const sendChatBtn = document.getElementById("send-btn");
 const chatbox = document.querySelector(".chatbox");
 
 let userMessage;
+const API_KEY = "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";
 
 const createChatLi = (message, className) => {
     const chatLi = document.createElement("li");
@@ -13,7 +14,19 @@ const createChatLi = (message, className) => {
 }
 
 const generateResponse = () => {
-    const API_URL = "";
+    const API_URL = "https://api.openai.com/v1/chat/completions";
+
+    const requestOpions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application.json",
+            "Authorization" : 'Bearer ${API_KEY}'
+        },
+        body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages:[{role: "user", content: userMessage}]
+        })
+    }
 }
 
 const handleChat = () => {
