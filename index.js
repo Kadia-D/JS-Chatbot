@@ -13,10 +13,11 @@ const createChatLi = (message, className) => {
     return chatLi;
 }
 
-const generateResponse = () => {
+const generateResponse = (incomingChatLi) => {
     const API_URL = "https://api.openai.com/v1/chat/completions";
+    const messageElement = incomingChatLi.querySelector("p");
 
-    const requestOpions = {
+    const requestOptions = {
         method: "POST",
         headers: {
             "Content-Type": "application.json",
@@ -27,6 +28,12 @@ const generateResponse = () => {
             messages:[{role: "user", content: userMessage}]
         })
     }
+
+    fetch(API_URL,requestOptions).then(res => res.json()).then(data =>{
+        messageElement.textContent = data.choices[0].message.content;
+    }).catch((error) =>{
+        messageElement.textContent = "Oops! Something went wrong.Please try again."
+    })
 }
 
 const handleChat = () => {
@@ -36,8 +43,9 @@ const handleChat = () => {
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
 
     setTimeout(() => {
-        chatbox.appendChild(createChatLi("Thinking...", "incoming"));
-        generateResponse();
+        const incomingChatLi = createChatLi("Thinking...", "incoming")
+        chatbox.appendChild(incomingChatLi);
+        generateResponse(incomingChatLi);
     },600);
     
     // Clear the input after sending the message
