@@ -12,11 +12,20 @@ const createChatLi = (message, className) => {
     return chatLi;
 }
 
+const generateResponse = () => {
+    const API_URL = "";
+}
+
 const handleChat = () => {
     userMessage = chatInput.value.trim();
     if (!userMessage) return;
 
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+
+    setTimeout(() => {
+        chatbox.appendChild(createChatLi("Thinking...", "incoming"));
+        generateResponse();
+    },600);
     
     // Clear the input after sending the message
     chatInput.value = "";
