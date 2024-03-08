@@ -20,7 +20,7 @@ const generateResponse = (incomingChatLi) => {
     const requestOptions = {
         method: "POST",
         headers: {
-            "Content-Type": "application.json",
+            "Content-Type": "application/json",
             "Authorization" : `Bearer ${API_KEY}`
         },
         body: JSON.stringify({
@@ -29,9 +29,11 @@ const generateResponse = (incomingChatLi) => {
         })
     }
 
-    fetch(API_URL,requestOptions).then(res => res.json()).then(data =>{
+    fetch(API_URL,requestOptions)
+    .then(res => res.json())
+    .then(data =>{
         messageElement.textContent = data.choices[0].message.content;
-    }).catch((error) =>{
+    }).catch((error) => {
         messageElement.textContent = "Oops! Something went wrong.Please try again."
     })
 }
