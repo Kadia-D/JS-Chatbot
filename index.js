@@ -3,7 +3,7 @@ const sendChatBtn = document.getElementById("send-btn");
 const chatbox = document.querySelector(".chatbox");
 
 let userMessage;
-const API_KEY = "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";
+const API_KEY = "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";
 
 const createChatLi = (message, className) => {
     const chatLi = document.createElement("li");
@@ -28,7 +28,11 @@ const generateResponse = (incomingChatLi) => {
             messages:[{role: "user", content: userMessage}]
         })
     }
+    // Function to delay the API call
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+    // Introduce a delay of 2 seconds (2000 milliseconds)
+    delay(2000).then(() => {
     fetch(API_URL,requestOptions)
     .then(res => res.json())
     .then(data =>{
@@ -37,6 +41,7 @@ const generateResponse = (incomingChatLi) => {
     }).catch((error) => {
         messageElement.textContent = "Oops! Something went wrong.Please try again."
     })
+})
 }
 
 const handleChat = () => {
