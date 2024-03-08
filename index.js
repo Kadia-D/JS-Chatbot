@@ -3,7 +3,7 @@ const sendChatBtn = document.getElementById("send-btn");
 const chatbox = document.querySelector(".chatbox");
 
 let userMessage;
-const API_KEY = "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";
+const API_KEY = "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";
 
 const createChatLi = (message, className) => {
     const chatLi = document.createElement("li");
@@ -32,6 +32,7 @@ const generateResponse = (incomingChatLi) => {
     fetch(API_URL,requestOptions)
     .then(res => res.json())
     .then(data =>{
+        console.log(data);
         messageElement.textContent = data.choices[0].message.content;
     }).catch((error) => {
         messageElement.textContent = "Oops! Something went wrong.Please try again."
